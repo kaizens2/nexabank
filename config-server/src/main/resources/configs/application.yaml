@@ -14,3 +14,11 @@ management:
   tracing:
     sampling:
       probability: 1.0
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate    # ← Hibernate only validates, Flyway owns schema
+  flyway:
+    enabled: true
+    locations: classpath:db/migration

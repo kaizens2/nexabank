@@ -59,6 +59,11 @@
             <artifactId>jspecify</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!-- Flyway — schema migration -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
