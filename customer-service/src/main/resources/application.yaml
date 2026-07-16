@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: customer-service
+
+  # Pull all config (port, datasource, jpa) from config-server
+  config:
+    import: configserver:http://localhost:8888
