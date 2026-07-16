@@ -1,0 +1,22 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: nexabank-config-server
+
+  profiles:
+    active: native
+
+  cloud:
+    config:
+      server:
+        # native mode ? configs stored as local files (no Git needed for local dev)
+        native:
+          search-locations: classpath:/configs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, refresh

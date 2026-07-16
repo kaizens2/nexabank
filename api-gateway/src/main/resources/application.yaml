@@ -1,0 +1,87 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: nexabank-api-gateway
+
+  # Pull config from config-server
+  config:
+    import: configserver:http://localhost:8888
+
+  cloud:
+    gateway:
+      # Automatically create routes from Eureka service names
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+      # Manual routes for each service
+      routes:
+
+        # ?? Customer Service ??
+        - id: customer-service
+          uri: lb://customer-service
+          predicates:
+            - Path=/api/customers/**
+          filters:
+            - StripPrefix=0
+
+        # ?? Account Service ??
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+            - Path=/api/accounts/**
+          filters:
+            - StripPrefix=0
+
+        # ?? Transaction Service ??
+        - id: transaction-service
+          uri: lb://transaction-service
+          predicates:
+            - Path=/api/transactions/**
+          filters:
+            - StripPrefix=0
+
+        # ?? Fraud Service ??
+        - id: fraud-service
+          uri: lb://fraud-service
+          predicates:
+            - Path=/api/fraud/**
+          filters:
+            - StripPrefix=0
+
+        # ?? Notification Service ??
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+          filters:
+            - StripPrefix=0
+
+        # ?? Audit Service ??
+        - id: audit-service
+          uri: lb://audit-service
+          predicates:
+            - Path=/api/audit/**
+          filters:
+            - StripPrefix=0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+    health:
+      show-details: always

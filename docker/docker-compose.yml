@@ -1,0 +1,108 @@
+version: '3.9'
+
+services:
+
+  # ── customers_db ──────────────────────────────
+  customers-db:
+    image: mysql:8.3
+    container_name: nexabank-customers-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: customers_db
+      MYSQL_USER: nexabank
+      MYSQL_PASSWORD: nexabank123
+    ports:
+      - "3307:3306"
+    volumes:
+      - customers_data:/var/lib/mysql
+    networks:
+      - nexabank-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "nexabank", "-pnexabank123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── accounts_db ───────────────────────────────
+  accounts-db:
+    image: mysql:8.3
+    container_name: nexabank-accounts-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: accounts_db
+      MYSQL_USER: nexabank
+      MYSQL_PASSWORD: nexabank123
+    ports:
+      - "3308:3306"
+    volumes:
+      - accounts_data:/var/lib/mysql
+    networks:
+      - nexabank-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "nexabank", "-pnexabank123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── transactions_db ───────────────────────────
+  transactions-db:
+    image: mysql:8.3
+    container_name: nexabank-transactions-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: transactions_db
+      MYSQL_USER: nexabank
+      MYSQL_PASSWORD: nexabank123
+    ports:
+      - "3309:3306"
+    volumes:
+      - transactions_data:/var/lib/mysql
+    networks:
+      - nexabank-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "nexabank", "-pnexabank123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── audit_db ──────────────────────────────────
+  audit-db:
+    image: mysql:8.3
+    container_name: nexabank-audit-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: audit_db
+      MYSQL_USER: nexabank
+      MYSQL_PASSWORD: nexabank123
+    ports:
+      - "3310:3306"
+    volumes:
+      - audit_data:/var/lib/mysql
+    networks:
+      - nexabank-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "nexabank", "-pnexabank123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Zipkin (distributed tracing) ──────────────
+  zipkin:
+    image: openzipkin/zipkin:3
+    container_name: nexabank-zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - nexabank-net
+
+# ── named volumes ─────────────────────────────
+volumes:
+  customers_data:
+  accounts_data:
+  transactions_data:
+  audit_data:
+
+# ── shared network ────────────────────────────
+networks:
+  nexabank-net:
+    driver: bridge
