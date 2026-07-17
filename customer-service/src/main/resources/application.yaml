@@ -5,3 +5,11 @@ spring:
   # Pull all config (port, datasource, jpa) from config-server
   config:
     import: configserver:http://localhost:8888
+
+  # Forces config to load before everything else including Flyway
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        max-attempts: 5
+        initial-interval: 2000

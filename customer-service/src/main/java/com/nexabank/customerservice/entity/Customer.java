@@ -9,8 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,32 +21,34 @@ import java.util.UUID;
 @Table(name = "customers")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class Customer {
+public class Customer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false)
-    private final UUID customerId;
+    @Column(name = "customer_id", updatable = false, nullable = false)
+    private UUID customerId;
 
     @Column(name = "first_name", nullable = false, length = 100)
-    private final String firstName;
+    private String firstName;
 
     @Column(name = "last_name", length = 100)
-    private final String lastName;
+    private String lastName;
 
     @Column(name = "email", unique = true, nullable = false, length = 100)
-    private final String email;
+    private String email;
 
     @Column(name = "phone", nullable = false, length = 13)
-    private final String phone;
+    private String phone;
 
     @Column(name = "kyc_status", nullable = false)
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private final EnumKYCStatus kycStatus = EnumKYCStatus.PENDING;
+    private EnumKYCStatus kycStatus = EnumKYCStatus.PENDING;
 
     @Column(name = "active", nullable = false)
     @Builder.Default
-    private final boolean active = true;
+    private boolean active = true;
 }
