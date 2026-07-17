@@ -13,3 +13,7 @@ spring:
       retry:
         max-attempts: 5
         initial-interval: 2000
+
+server:
+  servlet:
+    context-path: /api/customers
