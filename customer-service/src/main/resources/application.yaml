@@ -16,4 +16,4 @@ spring:
 
 server:
   servlet:
-    context-path: /api/customers
+    context-path: /nexabank/api/

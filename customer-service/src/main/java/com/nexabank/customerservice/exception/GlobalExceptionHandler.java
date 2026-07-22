@@ -1,5 +1,6 @@
 package com.nexabank.customerservice.exception;
 
+import com.nexabank.customerservice.exception.custom.UserAlreadyExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,6 +23,17 @@ public class GlobalExceptionHandler {
                 .stream()
                 .map(e -> e.getField() + ": " + e.getDefaultMessage())
                 .toList());
+        return problem;
+    }
+
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ProblemDetail userExistValidation(
+            UserAlreadyExistException ex) {
+        ProblemDetail problem = ProblemDetail
+                .forStatusAndDetail(HttpStatus.FOUND,
+                        "User already exists");
+        problem.setProperty("timestamp", Instant.now());
+        problem.setProperty("errors", ex.getMessage());
         return problem;
     }
 
