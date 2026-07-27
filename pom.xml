@@ -25,6 +25,7 @@
         <module>discovery-server</module>
         <module>api-gateway</module>
         <module>customer-service</module>
+        <module>account-service</module>
     </modules>
 
     <properties>
