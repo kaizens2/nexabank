@@ -14,9 +14,3 @@ spring:
         # native mode ? configs stored as local files (no Git needed for local dev)
         native:
           search-locations: classpath:/configs
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health, info, refresh
