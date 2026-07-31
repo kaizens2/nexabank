@@ -1,5 +1,7 @@
 package com.nexabank.accountservice.service.impl;
 
+import com.nexabank.accountservice.client.CustomerClient;
+import com.nexabank.accountservice.client.CustomerDto;
 import com.nexabank.accountservice.dto.AccountResponse;
 import com.nexabank.accountservice.dto.OpenAccountRequest;
 import com.nexabank.accountservice.enums.EnumAccountStatus;
@@ -22,10 +24,18 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountNumberGenerator accountNumberGenerator;
+    private final CustomerClient customerClient;
 
     @Override
     public AccountResponse openAccount(OpenAccountRequest openAccountRequest) {
         String accountNumber = accountNumberGenerator.generateAccountNumber();
+
+        CustomerDto customerDto = customerClient.getCustomerById(openAccountRequest.customerId());
+
+        if (customerDto == null) {
+            throw new IllegalArgumentException("Customer not found with ID: " + openAccountRequest.customerId());
+        }
+
 
         Account account = Account.builder()
                 .accountNumber(accountNumber)

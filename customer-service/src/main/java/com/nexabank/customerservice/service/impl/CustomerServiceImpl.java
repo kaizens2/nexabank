@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -40,6 +41,13 @@ public class CustomerServiceImpl implements CustomerService {
                 .lastName(customerRequest.lastName())
                 .phone(customerRequest.phone())
                 .build()));
+    }
+
+    @Override
+    public CustomerResponse getCustomer(UUID customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found with ID: " + customerId));
+        return CustomerResponse.from(customer);
     }
 
     @Transactional(readOnly = true)
