@@ -3,11 +3,11 @@ package com.nexabank.accountservice.client;
 import java.util.UUID;
 
 public record CustomerDto(
-    UUID id,
+    UUID customerId,
     String firstName,
     String lastName,
     String email,
-    String KycStatus,
+    String kycStatus,
     boolean active
 ) {
 }
