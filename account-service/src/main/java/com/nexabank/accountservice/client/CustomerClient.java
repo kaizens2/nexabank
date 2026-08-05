@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface CustomerClient {
 
-    @GetExchange("/nexabank/api/customers/{id}")
+    @GetExchange("/nexabank/api/customer/{id}")
     CustomerDto getCustomerById(@PathVariable("id") UUID id);
 }
