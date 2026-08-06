@@ -18,10 +18,11 @@ public class AccountNumberGenerator {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public String generateAccountNumber() {
         jdbcTemplate.update(
-            "UPDATE account_number_sequence SET next_val = LAST_INSERT_ID(next_val + 1)"
+                "UPDATE account_number_sequence SET next_val = next_val + 1 WHERE id = 1"
         );
         Long nextVal = jdbcTemplate.queryForObject(
-            "SELECT LAST_INSERT_ID()", Long.class
+                "SELECT next_val FROM account_number_sequence WHERE id = 1",
+                Long.class
         );
         return BANK_CODE + BRANCH_CODE + String.format("%010d", nextVal);
     }
