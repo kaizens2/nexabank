@@ -55,6 +55,7 @@ public class Account extends BaseEntity {
 
     @Column(nullable = false)
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private EnumAccountStatus status = EnumAccountStatus.ACTIVE;
 
     @Version
