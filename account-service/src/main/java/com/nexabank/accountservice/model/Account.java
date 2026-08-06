@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.UUID;
 
 @Entity
@@ -57,8 +57,8 @@ public class Account extends BaseEntity {
     @Builder.Default
     private EnumAccountStatus status = EnumAccountStatus.ACTIVE;
 
+    @Version
     @Column(nullable = false)
-    @Builder.Default
-    private BigInteger version =  BigInteger.ZERO;
+    private Long version;
 
 }

@@ -24,8 +24,3 @@ logging:
   pattern:
     correlation: "[${spring.application.name:},%X{traceId:-},%X{spanId:-}] "
     include-application-name: false
-
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: validate    # ← Hibernate only validates, Flyway owns schema
