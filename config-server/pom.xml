@@ -5,11 +5,12 @@
     <parent>
         <groupId>com.nexabank</groupId>
         <artifactId>nexabank-parent</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
 
     <name>config-server</name>
+    <version>0.0.1</version>
     <artifactId>config-server</artifactId>
     <description>config-server</description>
 
