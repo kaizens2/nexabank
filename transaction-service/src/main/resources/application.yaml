@@ -16,4 +16,4 @@ spring:
 
 server:
   servlet:
-    context-path: /transaction/api/
+    context-path: /transaction/api
