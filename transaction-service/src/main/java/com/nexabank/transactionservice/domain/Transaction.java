@@ -45,7 +45,7 @@ public class Transaction extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "direction", nullable = false)
-    private EnumsTransactionDirection type;
+    private EnumsTransactionDirection direction;
 
     @Column(name = "amount", nullable = false)
     private BigDecimal amount;

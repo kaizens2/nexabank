@@ -17,3 +17,6 @@ spring:
 server:
   servlet:
     context-path: /transaction/api
+
+bootui:
+  enabled: true
